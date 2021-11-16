@@ -6,43 +6,28 @@ class Menu:
         return "<LoadImage>"
         
     def Menu_BinarizeImage():
-        print("Opção Um Selecionada")
+        return "<BinarizeImage>"
         
     def Menu_ChangeColorPalletes():  # TONS DE CINZA, HSV, HSL, YCrCb
-        print("Opção Um Selecionada")
+        return "<ChangeColorPalletes>"
         
     def Menu_ShowHistrogram():       # MONOCROMATIC / RGB
         print("Opção Um Selecionada")
-        
-    def ShowHistogramMonochromatic():
-        print("Show histogram")
-        
-    def ShowHistogramRGB():
-        print("Opção Um Selecionada")
-    
-    def Menu_Filters():              # MEAN, MEDIAN, SOBEL, GAUSSIAN, LAPLACIAN
-        print("Opção Um Selecionada")
-        
-    def MeanFilter():
-        print("Opção Um Selecionada")
-        
-    def MedianFilter():
-        print("Opção Um Selecionada")
-    
-    def SobelFilter():
-        print("Opção Um Selecionada")
 
-    def GaussianFilter():
-        print("Opção Um Selecionada")
-    
-    def LaplacianFilter():
-        print("Opção Um Selecionada")
+    def Menu_Filters():              # MEAN, MEDIAN, SOBEL, GAUSSIAN, LAPLACIAN
+        return "<ApplyFilters>"
         
     def Menu_DetectBorders():             # Using Canny Method
-        print("Opção Um Selecionada")
+        return "<DetectBorderCanny>"
     
     def Menu_SaveProcessedImage():
         return "<SaveProcessedImage>"
+    
+    def Menu_ShowFinalImage():
+        return "<ShowFinalImage>"
+
+    def Menu_Undo():
+        return "<UndoImage>"
     
     def Exit():
         return "<ExitProgram>"
@@ -62,20 +47,41 @@ class Menu:
 
     def execute(user_input):
         
+        if user_input == 2:
+            return Menu.Menu_ChangeColorPalletes()
+        
         if user_input == 5:
             return Menu.Menu_LoadImage()
         
+        if user_input == 1:
+            return Menu.Menu_BinarizeImage()
+
+        if user_input == 7:
+            return Menu.Menu_ShowFinalImage()
+
+        if user_input == 6:
+            return Menu.Menu_SaveProcessedImage()
+
         if user_input == 8:
             print("8")
         
+        if user_input == 4:
+            return Menu.Menu_Filters()
+
+        if user_input == 3:
+            return Menu.Menu_DetectBorders()
+
         if user_input == 9:
+            return Menu.Menu_Undo()
+
+        if user_input == 11:
             return Menu.Exit()
             
     
 
     def run():
         user_input = 0
-        while(user_input != 9):
+        while(user_input != 11):
             user_input = int(input())
             if user_input is None:
                 user_input = 0
