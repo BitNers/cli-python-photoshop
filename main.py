@@ -12,7 +12,7 @@ from pprint import pprint
 class Image:
     
     def __init__(self):
-        self.imageBytes    = cv2.imread(".\\aaa.png", cv2.IMREAD_UNCHANGED) #None <- Voltar pra None quando finalizar.
+        self.imageBytes    = None# cv2.imread(".\\aaa.png", cv2.IMREAD_UNCHANGED) #None <- Voltar pra None quando finalizar.
         self.newImageBytes = None
         self.savedImage = False
 
