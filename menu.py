@@ -12,7 +12,7 @@ class Menu:
         return "<ChangeColorPalletes>"
         
     def Menu_ShowHistrogram():       # MONOCROMATIC / RGB
-        print("Opção Um Selecionada")
+        return "<ShowHistogram>"
 
     def Menu_Filters():              # MEAN, MEDIAN, SOBEL, GAUSSIAN, LAPLACIAN
         return "<ApplyFilters>"
@@ -63,7 +63,7 @@ class Menu:
             return Menu.Menu_SaveProcessedImage()
 
         if user_input == 8:
-            print("8")
+            return Menu.Menu_ShowHistrogram()
         
         if user_input == 4:
             return Menu.Menu_Filters()
