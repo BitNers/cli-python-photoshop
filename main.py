@@ -4,13 +4,15 @@ import os
 from os.path import exists
 import cv2
 import numpy as np
+from matplotlib import pyplot as plt
 from pprint import pprint
+
 
 
 class Image:
     
     def __init__(self):
-        self.imageBytes    = cv2.imread(".\\xaropinho.png", cv2.IMREAD_UNCHANGED) #None <- Voltar pra None quando finalizar.
+        self.imageBytes    = cv2.imread(".\\aaa.png", cv2.IMREAD_UNCHANGED) #None <- Voltar pra None quando finalizar.
         self.newImageBytes = None
         self.savedImage = False
 
@@ -321,6 +323,75 @@ class Image:
 
 
 
+    def ShowHistogram(self):
+        if self.imageBytes is None:
+            print("\t[!] Imagem não carregada.")
+            return
+
+        os.system("cls || clear") # Limpa-tela 
+        print("\t [*]Escolha uma opção de Hisograma: ")
+        print("\t\t 1 -- RGB")
+        print("\t\t 2 -- Monocromático")
+        print("\t\t 3 -- Sair")
+
+        opt = -1
+        while ((opt < 0) or (opt > 3)):
+            print("Escolha: ", end="")
+            opt = int(input())
+            hist = None
+            min_th_value = -1
+            max_th_value = -1
+
+            if(opt == 1):
+
+                if self.newImageBytes is None:
+                    hist = cv2.calcHist(self.imageBytes, channels=[0], mask=None, histSize=[256], ranges=[0,256])
+                else:
+                    hist = cv2.calcHist(self.newImageBytes, channels=[0], mask=None, histSize=[256], ranges=[0,256])
+                
+                print("\t[!] Visualizando Histograma.")
+                
+                hist /= hist.sum() # Normaliza-se o Histograma.
+                plt.figure()
+                plt.title("Histograma (Normalizado)")
+                plt.xlabel("Binários")
+                plt.ylabel("% \\de pixels")
+                plt.plot(hist)
+                plt.xlim([0,256])
+                plt.show()
+                break
+            
+            if(opt == 2):
+                
+                # Irá transformar a imagem em Preto e Branco para realizar o histograma monocromático.
+                if self.newImageBytes is None:
+                    bw_img = cv2.cvtColor(self.imageBytes, cv2.COLOR_RGB2GRAY)
+                    hist = cv2.calcHist(bw_img, channels=[0], mask=None, histSize=[256], ranges=[0,256])
+                else:
+                    bw_img = cv2.cvtColor(self.imageBytes, cv2.COLOR_RGB2GRAY)
+                    hist = cv2.calcHist(bw_img, channels=[0], mask=None, histSize=[256], ranges=[0,256])
+                
+                print("\t[!] Visualizando Histograma.")
+                
+                hist /= hist.sum() # Normaliza-se o Histograma.
+                plt.figure()
+                plt.title("Histograma Preto e Branco(Normalizado)")
+                plt.xlabel("Binários")
+                plt.ylabel("% \\de pixels")
+                plt.plot(hist)
+                plt.xlim([0,256])
+                plt.show()
+                break
+                
+            
+            
+            if(opt == 3):
+                print("\t[*] Saindo do modo Histograma.")
+                break
+        return
+
+
+
 
 
     def SaveProcessedImage(self):
@@ -371,7 +442,6 @@ class Image:
 
 
 
-
     def ExitProgram(self):
         if self.savedImage is False:
             print("\t[!!] Você ainda não salvou alterações desta imagem, deseja mesmo encerrar o programa? ")
@@ -396,13 +466,15 @@ def main():
     img = Image()
     while True:
         opt = menu.main()
-        print(np.shape(img.newImageBytes))
         
         if opt == "<ChangeColorPalletes>":
             img.ChangeColorPalletes()
 
         if opt == "<SaveProcessedImage>":
             img.SaveProcessedImage()
+            
+        if opt == "<ShowHistogram>":
+            img.ShowHistogram()   
         
         if opt == "<BinarizeImage>":
             img.BinarizeImage()
