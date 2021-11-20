@@ -5,9 +5,6 @@ from os.path import exists
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from pprint import pprint
-
-
 
 class Image:
     
