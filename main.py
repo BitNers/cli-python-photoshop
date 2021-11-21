@@ -246,8 +246,8 @@ class Image:
                 break
             
             if (opt == 2):
-                while ((max_th_value < 0) or (max_th_value > 9)):
-                    max_th_value = int(input("Máximo valor de Threshold (0-9): "))
+                while ((max_th_value < 0) or (max_th_value > 9) or (max_th_value % 2 == 0)):
+                    max_th_value = int(input("Máximo valor de Threshold (0-9)  (Apenas números ímpares): "))
 
                 if self.newImageBytes is None:
                     cg_colors = cv2.medianBlur(self.imageBytes, max_th_value)
@@ -278,9 +278,9 @@ class Image:
 
             
             if (opt == 4):
-                while ((min_th_value < 0) or (max_th_value < 0) or (min_th_value > 10) or (max_th_value > 10)):
-                    min_th_value = int(input("Mínimo valor de Threshold (0-10): "))
-                    max_th_value = int(input("Máximo valor de Threshold (0-10): "))
+                while ((min_th_value < 0) or (max_th_value < 0) or (min_th_value > 10) or (max_th_value > 10) or (max_th_value % 2 == 0) or (min_th_value % 2 == 0)):
+                    min_th_value = int(input("Mínimo valor de Threshold (0-10) (Apenas números ímpares): "))
+                    max_th_value = int(input("Máximo valor de Threshold (0-10) (Apenas números ímpares): "))
 
                 if self.newImageBytes is None:
                     cg_colors = cv2.GaussianBlur(self.imageBytes, (min_th_value,max_th_value), cv2.BORDER_DEFAULT)
